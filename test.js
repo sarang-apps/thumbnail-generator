@@ -1,7 +1,7 @@
 'use strict';
 
 var thumbnailGen = require('./index');
-
+const path = require("path");
 
 // var filePath = "/Users/computerroom/Desktop/test_files/job_queue.json";
 // var filePath = "/Users/computerroom/Desktop/test_files/WhatsApp Audio 2020-09-06 at 4.58.53 PM.mp4";

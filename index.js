@@ -2,7 +2,7 @@
 'use strict';
 
 const FileType = require('file-type');
-const exiftool = require("exiftool-vendored").exiftool;
+// const exiftool = require("exiftool-vendored").exiftool;
 const sharp = require('sharp');
 const ffmpeg = require("fluent-ffmpeg");
 const path = require("path");
