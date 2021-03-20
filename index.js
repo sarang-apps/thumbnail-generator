@@ -5,7 +5,7 @@ const FileType = require('file-type');
 // const exiftool = require("exiftool-vendored").exiftool;
 const sharp = require('sharp');
 const ffmpeg = require("fluent-ffmpeg");
-const path = require("path");
+// const path = require("path");
 const sprite = require('ffmpeg-generate-video-preview');
 const audioMetadata = require('music-metadata');
 
@@ -44,16 +44,13 @@ const getPhotoThumbnail = (path, thumbsPath) => {
                 .jpeg({
                     quality: 100
                 })
-                .toFile(thumbsPath, function(err) {
-                    let output = JSON.stringify({status:"failed", error: err});
-                    reject(output);
-                    console.error("Thumbnail Generation Error: ", err);
-                });
+                .toFile(thumbsPath)
             // console.log(thumbsOutput);
             let output = JSON.stringify({status:"success"});
             resolve(output);
         } catch (e) {
             let output = JSON.stringify({status:"failed", error: e});
+            console.error("Thumbnail Generation Error: ", err);
             reject(output);
         }
     })
