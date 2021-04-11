@@ -42,7 +42,7 @@ const getPhotoThumbnail = (path, thumbsPath) => {
             sharp(path)
                 .resize(160)
                 .jpeg({
-                    quality: 100
+                    quality: 65
                 })
                 .toFile(thumbsPath)
             // console.log(thumbsOutput);
