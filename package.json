@@ -1,6 +1,6 @@
 {
   "name": "thumbnail-generator",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generate thumbnails/sprites for images and videos.",
   "main": "index.js",
   "scripts": {
