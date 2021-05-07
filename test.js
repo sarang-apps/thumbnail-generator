@@ -9,6 +9,7 @@ const path = require("path");
 // var filePath = "/Users/computerroom/Desktop/test_files/test.jpg";
 // var filePath = "/Users/computerroom/Desktop/test_files/World ending.mp4";
 var filePath = "/Users/computerroom/Desktop/test_files/test.mp3";
+var filePath = "/Users/computerroom/Desktop/Screenshots/Output_Test/test1.jpg";
 
 var thumbsPath = "/Users/computerroom/Desktop/test_files/thumbnail.jpg";
 let thumbsFolder = "/Users/computerroom/Desktop/test_files/";
@@ -20,7 +21,7 @@ var spriteFolder = "/Users/computerroom/Desktop/test_files/";
     thumbnailGen.getFileType(filePath)
     .then(type => {
         var fileName = path.basename(filePath, path.extname(filePath));
-        var thumbsPath = "/Users/computerroom/Desktop/test_files/thumbnail.jpg";
+        var thumbsPath = "/Users/computerroom/Desktop/test_files/thumbnail3.jpg";
 
         if(type) {
             // console.log(type);

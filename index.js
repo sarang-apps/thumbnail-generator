@@ -42,12 +42,14 @@ const getPhotoThumbnail = (path, thumbsPath) => {
             sharp(path)
                 .resize(160)
                 .jpeg({
-                    quality: 65
+                    quality: 50
                 })
                 .toFile(thumbsPath)
+                .then(() => {
+                    let output = JSON.stringify({status:"success"});
+                    resolve(output);
+                })
             // console.log(thumbsOutput);
-            let output = JSON.stringify({status:"success"});
-            resolve(output);
         } catch (e) {
             let output = JSON.stringify({status:"failed", error: e});
             console.error("Thumbnail Generation Error: ", err);
@@ -71,12 +73,13 @@ const getVideoThumnail = (path, thumbsFolder, fileName) => {
                     filename: fileName + "_thumbs",
                     folder: thumbsFolder,
                     size: '160x160'
+                })
+                .then(() => {
+                    let output = JSON.stringify({status:"success"});
+                    resolve(output);
                 });
 
             // console.log(metadata);
-
-            let output = JSON.stringify({status:"success"});
-            resolve(output);
         } catch(e) {
             let output = JSON.stringify({status:"failed", error: e});
             reject(output);
@@ -99,11 +102,13 @@ const getVideoSprite = (path, spriteFolder, fileName) => {
                 cols: 5,
                 rows: 5
             })
+            .then(() => {
+                let output = JSON.stringify({status:"success"});
+                resolve(output);
+            })
 
-            console.log(metadata);
+            // console.log(metadata);
 
-            let output = JSON.stringify({status:"success"});
-            resolve(output);
         } catch(e) {
             let output = JSON.stringify({status:"failed", error: e});
             reject(output);
