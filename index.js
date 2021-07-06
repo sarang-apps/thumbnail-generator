@@ -2,7 +2,7 @@
 "use strict";
 
 const FileType = require("file-type");
-// const exiftool = require("exiftool-vendored").exiftool;
+const exiftool = require("exiftool-vendored").exiftool;
 const sharp = require("sharp");
 const ffmpeg = require("fluent-ffmpeg");
 // const path = require("path");
@@ -120,10 +120,37 @@ const getAudioArt = (path) => {
 	});
 };
 
+const getMetadata = (path) => {
+	return new Promise((resolve, reject) => {
+		try {
+			exiftool.read(path).then((tags) => resolve(tags));
+		} catch (error) {
+			let output = JSON.stringify({ status: "failed", error: e });
+			reject(output);
+		}
+	});
+};
+
+// Don't Use unless needed, Exiftool is better
+const getAudioMetadata = (path) => {
+	return new Promise((resolve, reject) => {
+		try {
+			audioMetadata.parseFile(path).then((metadata) => {
+				resolve(metadata);
+			});
+		} catch (error) {
+			let output = JSON.stringify({ status: "failed", error: e });
+			reject(output);
+		}
+	});
+};
+
 module.exports = {
 	getFileType,
 	getPhotoThumbnail,
 	getVideoThumnail,
 	getVideoSprite,
 	getAudioArt,
+	getMetadata,
+	getAudioMetadata,
 };

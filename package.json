@@ -1,6 +1,6 @@
 {
 	"name": "thumbnail-generator",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "Generate thumbnails/sprites for images and videos.",
 	"main": "index.js",
 	"scripts": {
@@ -18,7 +18,7 @@
 	},
 	"homepage": "https://github.com/sarang-apps/thumbnail-generator#readme",
 	"dependencies": {
-		"exiftool-vendored": "^14.1.0",
+		"exiftool-vendored": "^14.6.2",
 		"ffmpeg-generate-video-preview": "^1.0.3",
 		"file-type": "^16.3.0",
 		"fluent-ffmpeg": "^2.1.2",
