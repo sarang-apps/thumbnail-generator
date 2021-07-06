@@ -123,7 +123,7 @@ const getAudioArt = (path) => {
 const getMetadata = (path) => {
 	return new Promise((resolve, reject) => {
 		try {
-			exiftool.read(path).then((tags) => resolve(tags));
+			exiftool.readRaw(path).then((tags) => resolve(tags));
 		} catch (error) {
 			let output = JSON.stringify({ status: "failed", error: e });
 			reject(output);
