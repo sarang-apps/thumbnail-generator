@@ -25,7 +25,10 @@ const getFileType = (path) => {
 					resolve(fileString);
 				}
 			} else {
-				let output = JSON.stringify({ status: "failed", error: e });
+				let output = JSON.stringify({
+					status: "failed",
+					error: "file type did not return",
+				});
 				reject(output);
 			}
 		});
@@ -60,18 +63,29 @@ const getVideoThumnail = (path, thumbsFolder, fileName) => {
 		try {
 			// let thumbsPath = thumbsFolder + fileName + "_thumbs";
 
-			ffmpeg(path).screenshots({
-				count: 1,
-				filename: fileName + "_thumbs",
-				folder: thumbsFolder,
-				size: "160x160",
-			});
-			let output = JSON.stringify({ status: "success" });
-			resolve(output);
+			ffmpeg(path)
+				.on("error", (error) => {
+					// console.log("Video Thumb Error", error);
+					let output = JSON.stringify({
+						status: "failed",
+						error: error.message,
+					});
+					reject(output);
+				})
+				.screenshots({
+					count: 1,
+					filename: fileName + "_thumbs",
+					folder: thumbsFolder,
+					size: "160x160",
+				});
+			// .then(() => {
+			// 	let output = JSON.stringify({ status: "success" });
+			// 	resolve(output);
+			// });
 
 			// console.log(metadata);
 		} catch (e) {
-			let output = JSON.stringify({ status: "failed", error: e });
+			let output = JSON.stringify({ status: "failed", error: e.toString() });
 			reject(output);
 		}
 	});
@@ -104,17 +118,30 @@ const getVideoSprite = (path, spriteFolder, fileName) => {
 const getAudioArt = (path) => {
 	return new Promise((resolve, reject) => {
 		try {
-			audioMetadata.parseFile(path).then((metadata) => {
-				// console.log(metadata);
-				let audioArt = audioMetadata.selectCover(metadata.common.picture);
+			audioMetadata
+				.parseFile(path)
+				.then((metadata) => {
+					// console.log(metadata);
+					let audioArt = audioMetadata.selectCover(metadata.common.picture);
 
-				// console.log(audioArt);
+					// console.log(audioArt);
 
-				let output = JSON.stringify({ status: "success", thumbnail: audioArt });
-				resolve(output);
-			});
+					let output = JSON.stringify({
+						status: "success",
+						thumbnail: audioArt,
+					});
+					resolve(output);
+				})
+				.catch((err) => {
+					// console.log("Audio art Error", err);
+					let output = JSON.stringify({
+						status: "failed",
+						error: err.message,
+					});
+					reject(output);
+				});
 		} catch (error) {
-			let output = JSON.stringify({ status: "failed", error: e });
+			let output = JSON.stringify({ status: "failed", error: error });
 			reject(output);
 		}
 	});
@@ -125,7 +152,7 @@ const getMetadata = (path) => {
 		try {
 			exiftool.readRaw(path).then((tags) => resolve(tags));
 		} catch (error) {
-			let output = JSON.stringify({ status: "failed", error: e });
+			let output = JSON.stringify({ status: "failed", error: error });
 			reject(output);
 		}
 	});
